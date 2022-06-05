@@ -27,7 +27,11 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     g++-arm-linux-gnueabihf \
     qemu-user-binfmt
-    
+
 RUN chsh -s /bin/bash user
 USER user
 WORKDIR /home/user
+
+ENV RUST_VERSION stable
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain ${RUST_VERSION}
+ENV PATH $PATH:$HOME/.cargo/bin
